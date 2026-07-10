@@ -7,7 +7,10 @@ const userRoutes = require('./src/routes/user_routes');
 const app = express();
 const PORT = 5000;
 
-app.use(cors({ origin: 'http://localhost:5173'}));
+app.use(cors({ 
+  origin: ['http://localhost:5173', 'https://jwt-auth-project-zrvm.vercel.app'],
+  credentials: true 
+}));
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api', userRoutes);
