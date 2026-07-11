@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
     localStorage.setItem("refreshToken", data.refreshToken);
     localStorage.setItem("user", JSON.stringify(data.user));
     setUser(data.user);
+    navigate("/dashboard");
     return data.user;
   }
 
