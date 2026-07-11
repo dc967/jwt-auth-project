@@ -11,7 +11,8 @@ export async function registerUser(name, email, password) {
 }
 
 export async function logoutUser() {
-  await api.post("/auth/logout");
+  const refreshToken = localStorage.getItem("refreshToken");
+  await api.post("/auth/logout", { refreshToken }); // ← yeh add karo
 }
 
 export async function fetchCurrentUser() {
