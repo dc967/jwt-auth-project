@@ -7,7 +7,6 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // App load hote hi check karo ki pehle se login hai ya nahi
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     const token = localStorage.getItem("accessToken");
@@ -23,29 +22,6 @@ export function AuthProvider({ children }) {
     localStorage.setItem("refreshToken", data.refreshToken);
     localStorage.setItem("user", JSON.stringify(data.user));
     setUser(data.user);
-    const AuthContext = createContext(null);
-
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  // App load hote hi check karo ki pehle se login hai ya nahi
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    const token = localStorage.getItem("accessToken");
-    if (savedUser && token) {
-      setUser(JSON.parse(savedUser));
-    }
-    setLoading(false);
-  }, []);
-
-  async function login(email, password) {
-    const data = await loginUser(email, password);
-    localStorage.setItem("accessToken", data.accessToken);
-    localStorage.setItem("refreshToken", data.refreshToken);
-    localStorage.setItem("user", JSON.stringify(data.user));
-    setUser(data.user);
-    navigate("/dashboard");
     return data.user;
   }
 
@@ -60,39 +36,6 @@ export function AuthProvider({ children }) {
     }
   }
 
-  // Helper: kya logged-in user ka role allowed roles list mein hai
-  function hasRole(...allowedRoles) {
-    return user && allowedRoles.includes(user.role);
-  }
-
-  return (
-    <AuthContext.Provider value={{ user, loading, login, logout, hasRole }}>
-      {children}
-    </AuthContext.Provider>
-  );
-}
-
-export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used inside AuthProvider");
-  return ctx;
-}
-
-    return data.user;
-  }
-
-  async function logout() {
-    try {
-      await logoutUser();
-    } finally {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user");
-      setUser(null);
-    }
-  }
-
-  // Helper: kya logged-in user ka role allowed roles list mein hai
   function hasRole(...allowedRoles) {
     return user && allowedRoles.includes(user.role);
   }
