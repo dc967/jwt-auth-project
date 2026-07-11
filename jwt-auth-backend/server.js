@@ -8,7 +8,7 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors({ 
-  origin: ['http://localhost:5173', 'https://jwt-auth-project-zrvm.vercel.app'],
+  origin: ['http://localhost:5173', 'https://jwt-auth-project-teal.vercel.app' ],
   credentials: true 
 }));
 app.use(express.json());
